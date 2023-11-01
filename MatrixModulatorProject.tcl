@@ -179,16 +179,15 @@ set file "$origin_dir/ip/clk_wiz_0.xci"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
 if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+  set_property -name "is_locked" -value "1" -objects $file_obj
 }
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
 
 set file "$origin_dir/src/MatrixModulator_top.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
-
 
 set file "$origin_dir/src/red_sector.vhd"
 set file [file normalize $file]
@@ -207,7 +206,6 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 # Set 'sources_1' fileset properties
 set obj [get_filesets sources_1]
 set_property -name "top" -value "MatrixModulator_top" -objects $obj
-set_property -name "top_auto_set" -value "0" -objects $obj
 
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
@@ -227,10 +225,6 @@ if {[string equal [get_filesets -quiet constrs_1] ""]} {
 # Set 'constrs_1' fileset object
 set obj [get_filesets constrs_1]
 
-# Set 'constrs_1' fileset properties
-set obj [get_filesets constrs_1]
-set_property -name "target_part" -value "xc7z007sclg400-1" -objects $obj
-
 # Add/Import constrs file and set constrs file properties
 set file "[file normalize "$origin_dir/xdc/BlackBoard.xdc"]"
 set file_added [add_files -norecurse -fileset $obj [list $file]]
@@ -239,6 +233,9 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
 set_property -name "file_type" -value "XDC" -objects $file_obj
 
+# Set 'constrs_1' fileset properties
+set obj [get_filesets constrs_1]
+set_property -name "target_part" -value "xc7z007sclg400-1" -objects $obj
 
 # Create 'sim_1' fileset (if not found)
 if {[string equal [get_filesets -quiet sim_1] ""]} {
@@ -260,6 +257,10 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sim_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
+set file "$origin_dir/tb/MatrixModulator_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sim_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 # Set 'sim_1' fileset file properties for local files
 # None
@@ -267,7 +268,6 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 # Set 'sim_1' fileset properties
 set obj [get_filesets sim_1]
 set_property -name "top" -value "MatrixModulator_tb" -objects $obj
-set_property -name "top_auto_set" -value "0" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 
 # Set 'utils_1' fileset object
