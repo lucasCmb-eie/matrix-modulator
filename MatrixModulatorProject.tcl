@@ -228,7 +228,7 @@ set obj [get_filesets constrs_1]
 # Add/Import constrs file and set constrs file properties
 set file "[file normalize "$origin_dir/xdc/BlackBoard.xdc"]"
 set file_added [add_files -norecurse -fileset $obj [list $file]]
-set file "$origin_dir/xdc/BlackBoard.xdc"
+set file "$origin_dir/xdc/system.xdc"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
 set_property -name "file_type" -value "XDC" -objects $file_obj

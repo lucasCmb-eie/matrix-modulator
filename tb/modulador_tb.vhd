@@ -10,7 +10,7 @@
 -- Tool versions:  
 -- Description:   
 -- 
--- VHDL Test Bench Created by ISE for module: TOP
+-- VHDL Test Bench Created by ISE for module: modulator
 -- 
 -- Dependencies:
 -- 
@@ -42,7 +42,7 @@ ARCHITECTURE behavior OF modulador_tb IS
  
     -- Component Declaration for the Unit Under Test (UUT)
  
-    COMPONENT TOP
+    COMPONENT modulator
     PORT( 
          PUL_DOWN : IN  std_logic;
          PUL_UP : IN  std_logic;
@@ -126,7 +126,7 @@ BEGIN
     
     
 	-- Instantiate the Unit Under Test (UUT)
-   uut: TOP PORT MAP (
+   uut: modulator PORT MAP (
           PUL_DOWN => PUL_DOWN,
           PUL_UP => PUL_UP,
           REG_DOWN => REG_DOWN,
